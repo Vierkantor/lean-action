@@ -84,7 +84,7 @@ inputs:
       If lake-package-directory is not provided, `lean-action` will use the root directory of the repository by default.
     required: false
     default: "."
-  reinstall-transient-toolchains:
+  reinstall-transient-toolchain:
     description: |
       When the `lean-toolchain` file specifies a `lean-pr-release` toolchain, uninstall it before running any `lake` commands.
       This ensures the latest build of the toolchain will be downloaded and used to run CI steps.
@@ -136,8 +136,8 @@ runs:
       shell: bash
       working-directory: ${{ inputs.lake-package-directory }}
 
-    - name: reinstall transient toolchains
-      if: ${{ inputs.reinstall-transient-toolchains == 'true' }}
+    - name: reinstall transient toolchain
+      if: ${{ inputs.reinstall-transient-toolchain == 'true' }}
       run: |
         : Reinstall Transient Toolchains
         if [[ "$(cat lean-toolchain)" =~ ^leanprover/lean4-pr-releases:pr-release-[0-9]+$ ]]; then
